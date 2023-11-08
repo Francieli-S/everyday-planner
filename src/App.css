@@ -8,11 +8,11 @@
     align-items: center;
     background-color: rgb(226, 248, 250);
     font-family: 'Caveat', cursive;
+    color: rgb(4, 112, 120);
 }
 
 .heading {
     font-size: 40px;
-    color: rgb(4, 112, 120);
     margin: 30px 0;
     text-align: center;
     z-index: 1;
