@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import InputField from './components/InputField';
+import TaskList from './components/TaskList';
 import { Tasks } from './model';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -26,6 +27,10 @@ const App: React.FC = () => {
         task={task}
         setTask={setTask}
         handleAdd={handleAdd}
+      />
+      <TaskList 
+        tasks={tasks}
+        setTasks={setTasks}
       />
     </div>
   );
