@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './style.css';
 
 interface Props {
@@ -8,9 +8,17 @@ interface Props {
 }
 
 const InputField: React.FC<Props> = ({ task, setTask, handleAdd }) => {
+  // I got the useRef data type by hovering on <input>
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
-    <form className='input' onSubmit={handleAdd}>
+    <form className='input' onSubmit={(e) => {
+      handleAdd(e)
+      inputRef.current?.blur()
+      // logs current: input.input__box
+    }}>
       <input
+        ref={inputRef}
         className='input__box'
         type='input'
         placeholder='Enter a task'
