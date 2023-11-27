@@ -7,7 +7,7 @@ interface Props {
   handleAdd: (e: React.FormEvent) => void
 }
 
-const InputField: React.FC<Props> = ({ task, setTask, handleAdd }) => {
+const InputField: React.FC<Props> = ({ task, setTask, handleAdd }: Props) => {
   // I got the useRef data type by hovering on <input>
   const inputRef = useRef<HTMLInputElement>(null)
 

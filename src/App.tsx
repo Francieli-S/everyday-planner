@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import InputField from './components/InputField';
 import TaskList from './components/TaskList';
-import { Tasks } from './model';
+import { Task } from './model';
 import { v4 as uuidV4 } from 'uuid';
 
 const App: React.FC = () => {
   const [task, setTask] = useState<string>('');
-  const [tasks, setTasks] = useState<Tasks[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   console.log(tasks)
 
