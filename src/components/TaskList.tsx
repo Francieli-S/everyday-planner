@@ -1,17 +1,24 @@
 import React from 'react';
-import { Tasks } from './model';
+import { Task } from '../model';
+import './style.css';
+import SingleTask from './SingleTask';
 
 interface Props {
-  tasks: Tasks[];
+  tasks: Task[];
   // I got the setTasks data type by hovering on setTasks prop
-  setTasks: React.Dispatch<React.SetStateAction<Tasks[]>>
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
+const TaskList: React.FC<Props> = ({ tasks, setTasks }: Props) => {
   return (
-    <div>
+    <div className='tasks'>
       {tasks.map((task) => (
-        <li key={task.id}>{task.task}</li>
+        <SingleTask
+          key={task.id}
+          task={task}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       ))}
     </div>
   );

@@ -1,3 +1,4 @@
+/* InputFild component */
 .input {
   display: flex;
   width: 90%;
@@ -61,6 +62,63 @@
 .input_submit:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+/* TaskList component */
+
+.tasks {
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+  flex-wrap: wrap;
+}
+
+/* SingleTask component */
+.tasks__single {
+  display: flex;
+  width: 30%;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 15px;
+  background-color: rgb(9, 229, 245);
+}
+
+.tasks__single--text {
+  flex: 1;
+  border: none;
+  font-size: 20px;
+}
+
+.tasks__single--text:focus {
+  outline: none;
+}
+
+.icon {
+  margin-left: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* responsiviness */
+@media (max-width: 1200px) {
+  .tasks__single {
+    width: 40%;
+  }
+}
+
+@media (max-width: 700px) {
+  .input {
+    width: 95%;
+  }
+  .input_submit {
+    width: 15%;
+  }
+  .tasks {
+    width: 95%;
+  }
+  .tasks__single {
+    width: 100%;
+  }
 }
 
 
