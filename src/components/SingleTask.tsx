@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Task } from '../model';
 import {
   MdOutlineEdit,
@@ -14,13 +14,20 @@ interface Props {
 }
 
 const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editTask, setEditTask] = useState<string>(task.task);
+
+  const handleEdit = (e: React.FormEvent, id: string) => {
+    e.preventDefault();
+    setTasks(
+      tasks.map((task) => (task.id === id ? { ...task, task: editTask } : task))
+    );
+    setIsEdit(!editTask)
+  };
 
   const handleDelete = (id: string) => {
-    setTasks(
-      tasks.filter(task =>
-        task.id !== id)
-    )
-  }
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   const handleDone = (id: string) => {
     setTasks(
@@ -31,15 +38,24 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
   };
 
   return (
-    <form className='tasks__single'>
-      {task.isDone ? (
+    <form className='tasks__single' onSubmit={(e) => handleEdit(e, task.id)}>
+      {isEdit ? (
+        <input className='tasks__single--text' value={editTask} onChange={(e) => setEditTask(e.target.value)} />
+      ) : task.isDone ? (
         <s className='tasks__single--text'>{task.task}</s>
       ) : (
         <span className='tasks__single--text'>{task.task}</span>
       )}
 
       <div>
-        <span className='icon'>
+        <span
+          className='icon'
+          onClick={() => {
+            if (!isEdit && !task.isDone) {
+              setIsEdit(!isEdit);
+            }
+          }}
+        >
           <MdOutlineEdit />
         </span>
         <span className='icon' onClick={() => handleDelete(task.id)}>
