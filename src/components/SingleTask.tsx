@@ -6,14 +6,18 @@ import {
   MdOutlineDoneOutline,
 } from 'react-icons/md';
 import './style.css';
+import { Draggable } from 'react-beautiful-dnd';
+
+// COME BACK TO THIS COMPONENT TO ADD useReducer
 
 interface Props {
   task: Task;
+  index: number
   tasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
+const SingleTask: React.FC<Props> = ({ task, index, tasks, setTasks }: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<string>(task.task);
 
@@ -44,7 +48,13 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
   };
 
   return (
-    <form className='tasks__single' onSubmit={(e) => handleEdit(e, task.id)}>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided) =>  (
+        <form className='tasks__single' onSubmit={(e) => handleEdit(e, task.id)} 
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        >
       {isEdit ? (
         <input ref={inputRef} className='tasks__single--text' value={editTask} onChange={(e) => setEditTask(e.target.value)} />
       ) : task.isDone ? (
@@ -73,6 +83,9 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
         </span>
       </div>
     </form>
+      )}
+    
+    </Draggable>
   );
 };
 
