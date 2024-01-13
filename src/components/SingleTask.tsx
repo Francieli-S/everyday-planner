@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Task } from '../model';
 import {
   MdOutlineEdit,
@@ -17,6 +17,8 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<string>(task.task);
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const handleEdit = (e: React.FormEvent, id: string) => {
     e.preventDefault();
     setTasks(
@@ -24,6 +26,10 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
     );
     setIsEdit(!editTask)
   };
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [isEdit])
 
   const handleDelete = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -40,8 +46,9 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
   return (
     <form className='tasks__single' onSubmit={(e) => handleEdit(e, task.id)}>
       {isEdit ? (
-        <input className='tasks__single--text' value={editTask} onChange={(e) => setEditTask(e.target.value)} />
+        <input ref={inputRef} className='tasks__single--text' value={editTask} onChange={(e) => setEditTask(e.target.value)} />
       ) : task.isDone ? (
+        // tag s is strike to make the text with a line on it
         <s className='tasks__single--text'>{task.task}</s>
       ) : (
         <span className='tasks__single--text'>{task.task}</span>
@@ -52,7 +59,7 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }: Props) => {
           className='icon'
           onClick={() => {
             if (!isEdit && !task.isDone) {
-              setIsEdit(!isEdit);
+              setIsEdit(!isEdit);              
             }
           }}
         >
